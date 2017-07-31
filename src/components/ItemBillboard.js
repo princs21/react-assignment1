@@ -5,31 +5,29 @@ import AddItem from "./AddItem";
 class ItemBillboard extends Component {
   constructor(props) {
     super(props);
-    console.log(props);
     this.state = {
       items: props.items
     };
 
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
+    this.updateStorage = this.updateStorage.bind(this);
   }
 
   handleAddItem (item) {
-    //TODO add item to storage
-
     this.setState((prevState, props) => ({
       items: prevState.items.concat(item)
-    }));
+    }), this.updateStorage);
   }
 
   handleRemoveItem (name) {
-    //TODO remove item from storage
-
-    console.log('removing ' + JSON.stringify(name));
-
     this.setState((prevState, props) => ({
       items: prevState.items.filter((item) => { return item.name !== name})
-    }));
+    }), this.updateStorage);
+  }
+
+  updateStorage () {
+    sessionStorage.setItem('itemList', JSON.stringify(this.state.items));
   }
 
   render() {

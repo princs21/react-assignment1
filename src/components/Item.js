@@ -10,14 +10,16 @@ class Item extends Component {
 
   handleRemoveItem (event) {
     event.preventDefault();
-    console.log('removing ' + this.props.name);
     this.props.onRemoveItem(this.props.name);
   }
 
   render() {
     return (
       <Col sm={6} md={3} lg={3} className="Item">
-        <button className="Item-delete" onClick={this.handleRemoveItem}>Delete</button>
+        <button className="Item-delete close" onClick={this.handleRemoveItem}>
+          <span aria-hidden>x</span>
+          <span className="sr-only">Delete</span>
+        </button>
         <div className="Item-body">
           <img src={this.props.logo} className="Item-logo" alt={this.props.name}/>
           <span className="Item-price">{this.props.price}</span>
