@@ -2,14 +2,7 @@
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
-  height: 150px;
   padding: 20px;
   color: white;
 }
@@ -18,7 +11,61 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Item-billboard {
+  padding: 0 5% 5% 5%;
+  height: 100%;
+}
+
+.Item-logo {
+  position: relative;
+  height: 200px;
+  width: 100%;
+}
+
+.Item-add {
+  margin: 25px;
+}
+
+.Item-body {
+  position: relative;
+}
+
+.Item-price {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: white;
+  background: black;
+  z-index: 2;
+  font-size: large;
+  padding: 5px;
+}
+
+.Item-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: white;
+  visibility: hidden;
+  z-index: 2;
+  font-weight: bold;
+  opacity: 0.5;
+  text-shadow: 0 1px gray;
+  border: 0;
+  padding: 0 2px 0 2px;
+  font-size: large;
+}
+
+.Item:hover .Item-delete {
+  visibility: visible;
+}
+
+.Item-title {
+  color: white;
+  font-size: large;
+}
+
+
+body {
+  background: #222;
 }

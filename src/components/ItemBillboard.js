@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import '../App.css';
+
 import Item from "./Item";
 import AddItem from "./AddItem";
 
@@ -46,7 +48,7 @@ class ItemBillboard extends Component {
     });
 
     return (
-      <div>
+      <div className="Item-billboard">
         <AddItem items={itemNames} onAddItem={this.handleAddItem} />
         <div className="Item-list">
           {items}

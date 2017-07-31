@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Modal, FormControl, InputGroup, ControlLabel, FormGroup, Button, HelpBlock, ButtonToolbar} from 'react-bootstrap';
+import {Modal, FormControl, InputGroup, ControlLabel, FormGroup, Button, HelpBlock, ButtonToolbar, Glyphicon} from 'react-bootstrap';
 
 class AddItem extends Component {
   constructor (props) {
@@ -74,7 +74,10 @@ class AddItem extends Component {
       : null;
     return (
       <div className="Item-add">
-        <Button onClick={this.open}>Add</Button>
+        <Button className="Item-add-button" onClick={this.open}>
+          <Glyphicon glyph="plus"/>
+          Add
+        </Button>
 
         <Modal show={this.state.showModal} onHide={this.close}>
           <Modal.Header closeButton>
