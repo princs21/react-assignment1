@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Col} from 'react-bootstrap';
 
 class Item extends Component {
   constructor (props) {
@@ -15,7 +16,7 @@ class Item extends Component {
 
   render() {
     return (
-      <div className="Item col-lg-3 col-md-3 col-sm">
+      <Col sm={6} md={3} lg={3} className="Item">
         <button className="Item-delete" onClick={this.handleRemoveItem}>Delete</button>
         <div className="Item-body">
           <img src={this.props.logo} className="Item-logo" alt={this.props.name}/>
@@ -24,7 +25,7 @@ class Item extends Component {
         <p className="Item-title">
           {this.props.name}
         </p>
-      </div>
+      </Col>
     );
   }
 }

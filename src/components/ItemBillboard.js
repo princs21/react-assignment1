@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Item from "./Item";
+import AddItem from "./AddItem";
 
 class ItemBillboard extends Component {
   constructor(props) {
@@ -32,7 +33,9 @@ class ItemBillboard extends Component {
   }
 
   render() {
+    const itemNames = [];
     const items = this.state.items.map((item) => {
+      itemNames.push(item.name);
       return (
         <Item
           key={item.name}
@@ -46,9 +49,7 @@ class ItemBillboard extends Component {
 
     return (
       <div>
-        <div className="Item-add">
-          <button onClick={this.handleAddItem}>Add</button>
-        </div>
+        <AddItem items={itemNames} onAddItem={this.handleAddItem} />
         <div className="Item-list">
           {items}
         </div>
