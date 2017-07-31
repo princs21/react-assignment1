@@ -16,12 +16,18 @@ class AddItem extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.close = this.close.bind(this);
     this.open = this.open.bind(this);
-    this.validateItemNameExists = this.validateItemNameExists.bind(this);
+    this.validateItemNameUnique = this.validateItemNameUnique.bind(this);
     this.validateItemLogoImage = this.validateItemLogoImage.bind(this);
+    this.validateItemLogo = this.validateItemLogo.bind(this);
   }
 
   close() {
-    this.setState({ showModal: false });
+    this.setState({
+      showModal: false,
+      name: '',
+      price: 0.00,
+      logo: ''
+    });
   }
 
   open() {
@@ -30,7 +36,7 @@ class AddItem extends Component {
 
   handleSubmit (event) {
     event.preventDefault();
-    if (this.validateItemNameExists() !== 'error' && this.validateItemLogoImage() !== 'error') {
+    if (this.validateItemNameUnique() !== 'error' && this.validateItemLogoImage() !== 'error') {
       this.props.onAddItem({
         name: this.state.name,
         price: this.state.price,
@@ -48,7 +54,8 @@ class AddItem extends Component {
     });
   }
 
-  validateItemNameExists () {
+  validateItemNameUnique () {
+    if (!this.state.name) return null;
     if (this.props.items.indexOf(this.state.name) > -1) {
       return 'error';
     } else {
@@ -58,15 +65,20 @@ class AddItem extends Component {
 
   validateItemLogoImage () {
     let fileExtension = this.state.logo.substr(this.state.logo.lastIndexOf('.') + 1);
-    if (['jpg', 'jpeg', 'tiff', 'png', 'gif', 'bmp'].indexOf(fileExtension) > -1) {
-      return 'success';
+    return (['jpg', 'jpeg', 'tiff', 'png', 'gif', 'bmp'].indexOf(fileExtension) > -1);
+  }
+
+  validateItemLogo () {
+    if (!this.state.logo) return null;
+    if (this.validateItemLogoImage()) {
+      return 'success'
     } else {
-      return 'error';
+      return 'error'
     }
   }
 
   render() {
-    let nameExistsError = this.validateItemNameExists() === 'error'
+    let nameNotUniqueError = this.validateItemNameUnique() === 'error'
       ? <HelpBlock>Item {this.state.name} already exists</HelpBlock>
       : null;
     let urlNotImageError = this.validateItemLogoImage() === 'error'
@@ -86,7 +98,7 @@ class AddItem extends Component {
           <Modal.Body>
             <form onSubmit={this.handleSubmit}>
               <FormGroup
-                validationState={this.validateItemNameExists()}
+                validationState={this.validateItemNameUnique()}
               >
                 <ControlLabel>Item name</ControlLabel>
                 <FormControl
@@ -96,7 +108,7 @@ class AddItem extends Component {
                   onChange={this.handleInputChange}
                   required
                 />
-                { nameExistsError }
+                { nameNotUniqueError }
               </FormGroup>
               <FormGroup>
                 <ControlLabel>Item price</ControlLabel>
@@ -115,12 +127,12 @@ class AddItem extends Component {
               </FormGroup>
 
               <FormGroup
-                validationState={this.validateItemLogoImage()}
+                validationState={this.validateItemLogo()}
               >
                 <ControlLabel>Item image URL</ControlLabel>
                 <FormControl
                   id="logo"
-                  type="text"
+                  type="url"
                   placeholder="Enter URL for item image"
                   onChange={this.handleInputChange}
                   required
